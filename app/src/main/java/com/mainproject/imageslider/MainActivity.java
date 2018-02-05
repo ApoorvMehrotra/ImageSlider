@@ -29,7 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     //for viewpager
     private ViewPager viewPager;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView[] dots;
 
     //for displaying the current city
-    private TextView currentLocationTextView;
+   /* private TextView currentLocationTextView;
     LocationManager locationManager;
     double latitude;
     double longitude;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
             }
 
-
+*/
 
 
     //timer task for viewpager to auto slide images
@@ -161,12 +161,12 @@ public class MainActivity extends AppCompatActivity
         timer.scheduleAtFixedRate(new MyTimerTask(),2000,4000);
 
         //for knowing the current Location
-        currentLocation();
+     /*   currentLocation();
         currentLocationTextView=findViewById(R.id.currentLocationTextView);
        // if (latitude!=0 && longitude!= 0)
         {
             currentLocationTextView.setText("Longitude : "+longitude +" Latitude: "+latitude );
-        }
+        }*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
