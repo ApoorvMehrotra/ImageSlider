@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout sliderDots;
     private int dotsCount;
     private ImageView[] dots;
+    /*Check now*/
 
     //for displaying the current city
    /* private TextView currentLocationTextView;
