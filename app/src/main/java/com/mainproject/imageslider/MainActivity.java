@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+
+        /*Told Aman about the github repo*/
+
         dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.active_dot));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
