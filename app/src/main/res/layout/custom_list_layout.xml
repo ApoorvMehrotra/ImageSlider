@@ -12,7 +12,7 @@
         android:background="@android:color/background_light"
         android:fontFamily="sans-serif"
         android:text="Districts of Uttar Pradesh"
-        android:textAlignment="center"
+        android:textAlignment="inherit"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold|italic" />

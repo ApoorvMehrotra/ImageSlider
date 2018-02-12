@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 /**
  * Created by apoorv on 2/5/2018.
@@ -18,9 +21,26 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private Integer [] images={R.drawable.tajahal,R.drawable.brihadeeswarartemple,R.drawable.park};
 
+    int month=0;
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setImages(Integer[] images) {
+        this.images = images;
+    }
+
     public ViewPagerAdapter(Context context)
     {
         this.context=context;
+    }
+
+    //function to find the month of the year
+    public void ReturnMonth(){
+        Calendar calendar= Calendar.getInstance();
+        month=calendar.MONTH;
+
     }
 
 

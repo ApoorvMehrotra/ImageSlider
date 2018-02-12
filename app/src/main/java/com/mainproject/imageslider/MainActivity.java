@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.CollationElementIterator;
 import java.util.ArrayList;
@@ -59,8 +60,6 @@ public class MainActivity extends AppCompatActivity
    private ArrayAdapter listAdapter;
    View layoutView;
 
-
-   //funnction to sort the arraylist
 
 
    //function to populate the list of Districts
@@ -113,6 +112,16 @@ public class MainActivity extends AppCompatActivity
         viewPager=findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
+        viewPagerAdapter.ReturnMonth();
+        int month=viewPagerAdapter.getMonth();
+        if (month!=0)
+        {
+            if (month==2)
+            {
+                Integer [] images={R.drawable.month21,R.drawable.month22,R.drawable.month23};
+                viewPagerAdapter.setImages(images);
+            }
+        }
 
         sliderDots=findViewById(R.id.sliderDots);
         dotsCount=viewPagerAdapter.getCount();
