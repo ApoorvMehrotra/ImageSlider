@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,10 +22,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.CollationElementIterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,55 +49,36 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout sliderDots;
     private int dotsCount;
     private ImageView[] dots;
-    /*Check now*/
 
-    //for displaying the current city
-   /* private TextView currentLocationTextView;
-    LocationManager locationManager;
-    double latitude;
-    double longitude;
+   /* List of Districts : Constants*/
 
-    private void currentLocation() {
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        onLocationChanged(location);
-
-       }
-            @Override
-            public void onLocationChanged(Location location) {
-                latitude= location.getLatitude();
-                longitude=location.getLongitude();
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-
-*/
+   private Button districtButton;
+   private LinearLayout districtLinearList;
+   private ListView districtListView;
+    private ArrayList<String> districtList;
+   private ArrayAdapter listAdapter;
+   View layoutView;
 
 
+   //funnction to sort the arraylist
+
+
+   //function to populate the list of Districts
+    public void populateList()
+    {
+
+        districtList=new ArrayList<>(Arrays.asList("Agra","Aligarh", "Allahabad", "Ambedkar Nagar", "Auraiya", "Azamgarh", "Bagpat", "Bahraich", "Balrampur", "Ballia", "Banda", "Barabanki", "Bareilly",
+                "Basti", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah",
+                "Etawah", "Faizabad", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur",
+                "Gonda", "Gorakhpur", "Hamirpur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi",
+                "Jyotiba Phule Nagar", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kaushambi", "Kheri", "Kushinagar",
+                "Lalitpur", "Lucknow", "Mahobaaharajganjnj", "Mathura", "Mainpuri", "Meerut", "Mirzapur",
+                "Moradabad", "Muzaffarnagaragar", "Pilibhit", "Pratapgarhh", "RaeBareli", "Rampur", "Saharanpur", "Sant Kabir Nagar",
+                "Sant Ravidas Nagar", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpurnasi", "Unnao", "Manyavar Kanshiram Nagar",
+                "Prabuddha Nagar", "Shamli", "Panchsheel Nagar", "Hapur", "Bhim Nagar", "Chandausi"));
+
+        Collections.sort(districtList);
+    }
     //timer task for viewpager to auto slide images
     public class MyTimerTask extends TimerTask
     {
@@ -136,7 +130,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        /*Told Aman about the github repo*/
 
         dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.active_dot));
 
@@ -165,13 +158,6 @@ public class MainActivity extends AppCompatActivity
         Timer timer=new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(),2000,4000);
 
-        //for knowing the current Location
-     /*   currentLocation();
-        currentLocationTextView=findViewById(R.id.currentLocationTextView);
-       // if (latitude!=0 && longitude!= 0)
-        {
-            currentLocationTextView.setText("Longitude : "+longitude +" Latitude: "+latitude );
-        }*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +176,52 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+       /* for displaying the list of districts*/
+
+       districtButton=findViewById(R.id.districtButton);
+       districtLinearList=findViewById(R.id.displayLinearList);
+       populateList();
+       listAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,districtList);
+
+       LayoutInflater layoutInflater=getLayoutInflater();
+       layoutView= layoutInflater.inflate(R.layout.custom_list_layout,null);
+       districtListView=layoutView.findViewById(R.id.customDistrictList);
+       districtListView.setAdapter(listAdapter);
+       TextView customTextView= layoutView.findViewById(R.id.customTextView);
+
+       customTextView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_down_animation);
+               animation.setStartOffset(0);
+               districtLinearList.startAnimation(animation);
+               districtLinearList.removeView(layoutView);
+               districtButton.setVisibility(View.VISIBLE);
+           }
+       });
+
+       districtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+           }
+       });
+
+        districtButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               districtLinearList.removeAllViews();
+               districtLinearList.addView(layoutView);
+               districtButton.setVisibility(View.INVISIBLE);
+
+               Animation animation = AnimationUtils.loadAnimation(getBaseContext(),R.anim.slide_up_animation);
+               animation.setStartOffset(0);
+               districtLinearList.startAnimation(animation);
+
+           }
+       });
     }
 
     @Override
@@ -197,7 +229,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }else if(districtLinearList!=null)
+        {
+            districtLinearList.removeView(layoutView);
+            districtButton.setVisibility(View.VISIBLE);
+        }
+        else {
             super.onBackPressed();
         }
     }

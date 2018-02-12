@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/customTextView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/background_light"
+        android:fontFamily="sans-serif"
+        android:text="Districts of Uttar Pradesh"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customDistrictList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light" />
+</LinearLayout>
