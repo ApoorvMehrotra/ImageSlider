@@ -87,15 +87,16 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
                     if (viewPager.getCurrentItem()==0)
                     {
                         viewPager.setCurrentItem(1);
-                    }else if (viewPager.getCurrentItem()==1)
-                    {
-                        viewPager.setCurrentItem(2);
-                    }else if (viewPager.getCurrentItem()==2)
+                    }else if (viewPager.getCurrentItem()==dotsCount-1)
                     {
                         viewPager.setCurrentItem(0);
+                    }else
+                    {
+                        viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
                     }
                 }
             });
@@ -118,8 +119,9 @@ public class MainActivity extends AppCompatActivity
         {
             if (month==2)
             {
-                Integer [] images={R.drawable.month21,R.drawable.month22,R.drawable.month23};
+                Integer [] images={R.drawable.month21,R.drawable.month22,R.drawable.month23,R.drawable.tajahal,R.drawable.brihadeeswarartemple,R.drawable.park};
                 viewPagerAdapter.setImages(images);
+                viewPagerAdapter.notifyDataSetChanged();
             }
         }
 
@@ -214,6 +216,8 @@ public class MainActivity extends AppCompatActivity
        districtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+               Toast.makeText(MainActivity.this, "District Selected: "+districtListView.getItemAtPosition(i).toString() , Toast.LENGTH_SHORT).show();
 
            }
        });
